@@ -26,8 +26,6 @@ variable "key_name" {
 }
 
 variable "public_subnets" {
-  description = "List of public subnets for EC2 instances."
-  type        = list(object({
-    id = string
-  }))
+  description = "List of public subnet IDs for EC2 instances."
+  type        = list(string)
 }

@@ -23,7 +23,10 @@ module "ec2" {
   ami_id          = "ami-0f5ee92e2d63afc18"
   instance_type   = "t2.micro"  # Adjust the instance type as needed.
   key_name        = "Sam"
-  public_subnets  = aws_subnet.public_subnets
+  public_subnets  = [
+    module.vpc.public_subnet_az1_id,
+    module.vpc.public_subnet_az2_id,
+  ]
 }
 
 
