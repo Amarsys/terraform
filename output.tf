@@ -1,15 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
-module "vpc" {
-  source = "./vpc"
-
-  project_name = var.project_name
-  environment  = var.environment
-  vpc_cidr     = var.vpc_cidr
-}
-
 output "vpc_id" {
   description = "The ID of the VPC."
   value       = module.vpc.vpc_id

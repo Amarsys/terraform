@@ -1,8 +1,6 @@
-# VPC Configuration
-resource "aws_vpc" "main" {
+resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr
   instance_tenancy     = "default"
-  enable_dns_support   = true
   enable_dns_hostnames = true
 
   tags = {
@@ -10,49 +8,56 @@ resource "aws_vpc" "main" {
   }
 }
 
-# Use data source to get all availability zones in the region
-data "aws_availability_zones" "available" {}
-
-resource "aws_subnet" "public" {
-  count                  = length(var.public_subnet_cidrs)
-  vpc_id                 = aws_vpc.main.id
-  cidr_block             = var.public_subnet_cidrs[count.index]
-  availability_zone      = element(data.aws_availability_zones.available.names, count.index)
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "${var.project_name}-${var.environment}-public-subnet-${count.index + 1}"
-  }
-}
-
-# Create Internet Gateway and attach it to the VPC
-resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "internet_gateway" {
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
     Name = "${var.project_name}-${var.environment}-igw"
   }
 }
 
-data "aws_route_table" "public" {
-  count   = length(aws_subnet.public)
-  subnet_id = aws_subnet.public[count.index].id
+data "aws_availability_zones" "available_zones" {}
+
+resource "aws_subnet" "public_subnet_az1" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = var.pub_subnet_az1_cidr
+  availability_zone       = data.aws_availability_zones.available_zones.names[0]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${var.project_name}-${var.environment}-public-az1"
+  }
 }
 
-resource "aws_route" "public_internet" {
-  count           = length(aws_subnet.public)
-  route_table_id  = data.aws_route_table.public[count.index].id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id      = aws_internet_gateway.main.id
+resource "aws_subnet" "public_subnet_az2" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = var.pub_subnet_az2_cidr
+  availability_zone       = data.aws_availability_zones.available_zones.names[1]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "${var.project_name}-${var.environment}-public-az2"
+  }
 }
 
-# Outputs
-# output "vpc_id" {
-# description = "The ID of the VPC."
-#  value       = aws_vpc.main.id
-#}
+resource "aws_subnet" "private_app_subnet_az1" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = var.prvt_app_subnet_az1_cidr
+  availability_zone       = data.aws_availability_zones.available_zones.names[0]
+  map_public_ip_on_launch = false
 
-#output "public_subnet_ids" {
-#  description = "List of public subnet IDs."
-# value       = aws_subnet.public[*].id
-#}
+  tags = {
+    Name = "${var.project_name}-${var.environment}-private-app-az1"
+  }
+}
+
+resource "aws_subnet" "private_app_subnet_az2" {
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = var.prvt_app_subnet_az2_cidr
+  availability_zone       = data.aws_availability_zones.available_zones.names[1]
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "${var.project_name}-${var.environment}-private-app-az2"
+  }
+}
