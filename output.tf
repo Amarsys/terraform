@@ -18,7 +18,7 @@ output "private_app_subnet_az2_id" {
   value       = module.vpc.private_app_subnet_az2_id
 }
 
-output "ec2_instance_ids" {
-  description = "List of EC2 instance IDs created by the module."
-  value       = module.ec2.ec2_instance_ids
-}
+#output "ec2_instance_ids" {
+#  description = "List of EC2 instance IDs created by the module."
+#  value       = module.ec2.ec2_instance_ids
+#}

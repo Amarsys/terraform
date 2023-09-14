@@ -14,19 +14,26 @@ module "vpc" {
   prvt_app_subnet_az2_cidr = var.prvt_app_subnet_az2_cidr
 }
 
-module "ec2" {
-  source = "./ec2"
+#module "ec2" {
+#  source = "./ec2"
 
-  project_name    = var.project_name
-  environment     = var.environment
-  instance_count  = 1  # Adjust the number of instances as needed.
-  ami_id          = "ami-0f5ee92e2d63afc18"
-  instance_type   = "t2.micro"  # Adjust the instance type as needed.
-  key_name        = "Sam"
-  public_subnets  = [
-    module.vpc.public_subnet_az1_id,
-    module.vpc.public_subnet_az2_id,
-  ]
+#  project_name    = var.project_name
+#  environment     = var.environment
+#  instance_count  = 1  # Adjust the number of instances as needed.
+#  ami_id          = "ami-0f5ee92e2d63afc18"
+#  instance_type   = "t2.micro"  # Adjust the instance type as needed.
+#  key_name        = "Sam"
+#  public_subnets  = [
+#    module.vpc.public_subnet_az1_id,
+#    module.vpc.public_subnet_az2_id,
+#  ]
+#}
+
+module "ecs_cluster" {
+  source = "./ecs_cluster"
+
+  project_name = var.project_name
+  environment  = var.environment
 }
 
 
