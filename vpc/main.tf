@@ -10,6 +10,9 @@ resource "aws_vpc" "main" {
   }
 }
 
+# Use data source to get all availability zones in the region
+data "aws_availability_zones" "available" {}
+
 resource "aws_subnet" "public" {
   count                  = length(var.public_subnet_cidrs)
   vpc_id                 = aws_vpc.main.id
