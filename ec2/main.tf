@@ -2,7 +2,7 @@ resource "aws_instance" "ec2_instances" {
   count         = var.instance_count
   ami           = var.ami_id
   instance_type = var.instance_type
-  subnet_id     = element(aws_subnet.public_subnets[*].id, count.index % length(aws_subnet.public_subnets))
+  subnet_id     = element(var.public_subnets, count.index % length(var.public_subnets))
   key_name      = var.key_name
 
   tags = {
