@@ -17,3 +17,19 @@ variable "vpc_cidr" {
   description = "The CIDR block for the VPC."
   default     = "10.0.0.0/16"
 }
+
+variable "pub_subnet_az1_cidr" {
+  description = "CIDR block for the public subnet in Availability Zone 1."
+}
+
+variable "pub_subnet_az2_cidr" {
+  description = "CIDR block for the public subnet in Availability Zone 2."
+}
+
+variable "prvt_app_subnet_az1_cidr" {
+  description = "CIDR block for the private application subnet in Availability Zone 1."
+}
+
+variable "prvt_app_subnet_az2_cidr" {
+  description = "CIDR block for the private application subnet in Availability Zone 2."
+}
