@@ -1,64 +1,66 @@
-# export the region
+# Exported Outputs
+
 output "region" {
-  value = var.region
+  description = "The AWS region where the VPC was created."
+  value       = var.region
 }
 
-# export the project name
 output "project_name" {
-  value = var.project_name
+  description = "The name of the project."
+  value       = var.project_name
 }
 
-# export the environment
-output "environment" {
-  value = var.Environment
+output "Environment" {
+  description = "The environment (e.g., dev, prod)."
+  value       = var.Environment
 }
 
-# export the vpc id
 output "vpc_id" {
-  value = aws_vpc.vpc.id
+  description = "The ID of the VPC."
+  value       = aws_vpc.vpc.id
 }
 
-# export the internet gateway
 output "internet_gateway" {
-  value = aws_internet_gateway.internet_gateway
+  description = "The ID of the Internet Gateway."
+  value       = aws_internet_gateway.internet_gateway.id
 }
 
-# export the public subnet az1 id
 output "public_subnet_az1_id" {
-  value = aws_subnet.public_subnet_az1.id
+  description = "The ID of the public subnet in Availability Zone 1."
+  value       = aws_subnet.public_subnet_az1.id
 }
 
-# export the public subnet az2 id
 output "public_subnet_az2_id" {
-  value = aws_subnet.public_subnet_az2.id
+  description = "The ID of the public subnet in Availability Zone 2."
+  value       = aws_subnet.public_subnet_az2.id
 }
 
-# export the private app subnet az1 id
 output "private_app_subnet_az1_id" {
-  value = aws_subnet.private_app_subnet_az1.id
+  description = "The ID of the private application subnet in Availability Zone 1."
+  value       = aws_subnet.private_app_subnet_az1.id
 }
 
-# export the private app subnet az2 id
 output "private_app_subnet_az2_id" {
-  value = aws_subnet.private_app_subnet_az2.id
+  description = "The ID of the private application subnet in Availability Zone 2."
+  value       = aws_subnet.private_app_subnet_az2.id
 }
 
-# export the private data subnet az1 id
 output "private_data_subnet_az1_id" {
-  value = aws_subnet.private_data_subnet_az1.id
+  description = "The ID of the private data subnet in Availability Zone 1."
+  value       = aws_subnet.private_data_subnet_az1.id
 }
 
-# export the private data subnet az2 id
 output "private_data_subnet_az2_id" {
-  value = aws_subnet.private_data_subnet_az2.id
+  description = "The ID of the private data subnet in Availability Zone 2."
+  value       = aws_subnet.private_data_subnet_az2.id
 }
 
-# export the first availability zone
 output "availability_zone_1" {
-  value = data.aws_availability_zones.available_zones.names[0]
+  description = "The name of the first availability zone."
+  value       = data.aws_availability_zones.available_zones.names[0]
 }
 
-# export the second availability zone
 output "availability_zone_2" {
-  value = data.aws_availability_zones.available_zones.names[1]
+  description = "The name of the second availability zone."
+  value       = data.aws_availability_zones.available_zones.names[1]
 }
