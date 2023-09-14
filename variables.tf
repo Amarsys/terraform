@@ -9,9 +9,3 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
-
-variable "region" {
-  description = "AWS region where resources will be created."
-  type        = string
-  default     = "ap-south-1"  # Specify your desired AWS region
-}
