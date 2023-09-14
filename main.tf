@@ -7,7 +7,7 @@ module "vpc" {
 }
 
 module "ec2_instance" {
-  source       = "./ec2"
+  source       = "./ec2_instance"
   ami          = "ami-0f5ee92e2d63afc18"  # Replace with your desired AMI ID
   instance_type = "t2.micro"      # Replace with your desired instance type
   project_name = "my-project"
@@ -27,4 +27,9 @@ output "public_subnet_ids" {
 output "ec2_instance_id" {
   description = "The ID of the EC2 instance."
   value       = module.ec2_instance.instance_id
+}
+
+output "ec2_instance_public_ip" {
+  description = "The public IP address of the EC2 instance."
+  value       = module.ec2_instance.public_ip
 }
