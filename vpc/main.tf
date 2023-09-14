@@ -61,3 +61,34 @@ resource "aws_subnet" "private_app_subnet_az2" {
     Name = "${var.project_name}-${var.environment}-private-app-az2"
   }
 }
+
+# Define output values for the VPC module
+output "vpc_id" {
+  description = "The ID of the VPC."
+  value       = aws_vpc.vpc.id
+}
+
+output "internet_gateway_id" {
+  description = "The ID of the Internet Gateway."
+  value       = aws_internet_gateway.internet_gateway.id
+}
+
+output "public_subnet_az1_id" {
+  description = "The ID of the public subnet in Availability Zone 1."
+  value       = aws_subnet.public_subnet_az1.id
+}
+
+output "public_subnet_az2_id" {
+  description = "The ID of the public subnet in Availability Zone 2."
+  value       = aws_subnet.public_subnet_az2.id
+}
+
+output "private_app_subnet_az1_id" {
+  description = "The ID of the private application subnet in Availability Zone 1."
+  value       = aws_subnet.private_app_subnet_az1.id
+}
+
+output "private_app_subnet_az2_id" {
+  description = "The ID of the private application subnet in Availability Zone 2."
+  value       = aws_subnet.private_app_subnet_az2.id
+}
